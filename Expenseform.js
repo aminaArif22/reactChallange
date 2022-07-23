@@ -33,6 +33,40 @@ const ExpenseForm = (props) => {
   const buttonClickHandler = () => {
     // when the button will be cliccked addExpense state will be set to false
     setAddExpense(false);
+    
+    
+    
+    ////----------------------------------------- Alternate ----------------------------------------------------------------////
+    import React, { useState } from "react"
+import "./NewExpense.css"
+import ExpenseForm from "./ExpenseForm";
+
+
+function NewExpense(props){
+    const [addExpense,setAddExpense] = useState(true);
+    const saveExpenseDataHandler = (enteredExpenseData) => {
+        const expenseData = {
+            ...enteredExpenseData,
+            key : Math.random().toString()
+        }
+       
+        props.onExpenseData(expenseData);
+        setAddExpense(true)
+        
+    }
+
+    function buttonClickHandler(){
+        setAddExpense(false)
+    }
+    return (
+        <div className="new-expense">
+            {addExpense ? <button onClick={buttonClickHandler}>Add Expense</button> :  <ExpenseForm onSaveExpenseData={saveExpenseDataHandler}/>}
+           
+        </div>
+    )
+}
+
+export default NewExpense;
   };
 
   if (addExpense)
